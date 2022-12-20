@@ -1,9 +1,9 @@
 ﻿using WebApplication1.Models;
 using WebApplication1.Services.Builders;
 
-namespace WebApplication1.Data
+namespace Notifications.Data
 {
-    public class Database
+    public class Database: IDatabase
     {
         private List<Buyer> _buyers;
         private List<Property> _properties;
@@ -101,6 +101,34 @@ namespace WebApplication1.Data
                 FeatureBuilder.AFeature().WithId("4").Build(),
                 FeatureBuilder.AFeature().WithId("5").Build(),
             };
+        }
+
+        public void InsertBuyer(Buyer buyer)
+        {
+            _buyers.Add(buyer);
+        }
+
+        public void UpdatetBuyer(Buyer buyer)
+        {
+            var ids = _buyers
+                .Select(_buyer => _buyer.Id)
+                .ToList();
+
+            _buyers[ids.IndexOf(buyer.Id)] = buyer;
+        }
+
+        public void InsertProperty(Property property)
+        {
+            _properties.Add(property);
+        }
+
+        public void UpdatetProperty(Property property)
+        {
+            var ids = _properties
+                .Select(_property => _property.Id)
+                .ToList();
+
+            _properties[ids.IndexOf(property.Id)] = property;
         }
     }
 }
